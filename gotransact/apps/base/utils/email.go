@@ -28,15 +28,15 @@ import (
 // "user has been created successfully ,this is a confirmation mail"
 func SendMail(email string, subject string, body string) {
 	logger.InfoLogger.WithFields(logrus.Fields{}).Info("attempted Sendmail() email to", email)
-	abc := gomail.NewMessage()
+	mail := gomail.NewMessage()
 
-	abc.SetHeader("From", config.FromEmail)
-	abc.SetHeader("To", email)
-	abc.SetHeader("Subject", subject)
-	abc.SetBody("text/plain", body)
+	mail.SetHeader("From", config.FromEmail)
+	mail.SetHeader("To", email)
+	mail.SetHeader("Subject", subject)
+	mail.SetBody("text/html", body)
 
-	a := gomail.NewDialer(config.EmailHost, 587, config.EmailUser, config.EmailPass)
-	if err := a.DialAndSend(abc); err != nil {
+	dialer := gomail.NewDialer(config.EmailHost, 587, config.EmailUser, config.EmailPass)
+	if err := dialer.DialAndSend(mail); err != nil {
 		logger.ErrorLogger.WithFields(logrus.Fields{
 			"error": err.Error(),
 		}).Error("error sending mail")

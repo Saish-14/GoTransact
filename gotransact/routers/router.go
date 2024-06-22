@@ -2,7 +2,7 @@ package routers
 
 import (
 	account "gotransact/apps/accounts/handlers"
-	// transaction "gotransact/apps/transaction/handlers"
+	transaction "gotransact/apps/transaction/handlers"
 	docs "gotransact/docs"
 	"gotransact/middleware"
 
@@ -19,12 +19,12 @@ func Routers() *gin.Engine {
 	{
 		api.POST("/register", account.SignupHandler)
 		api.POST("/login", account.LoginHandler)
-		// api.GET("/confirm-payment", transaction.ConfirmPayment)
+		api.GET("/confirm-payment", transaction.ConfirmPaymentHandler)
 
 		protected := api.Group("/protected")
 		protected.Use(middleware.AuthMiddleware())
 		{
-			// protected.POST("/post-payment", transaction.PaymentRequest)
+			protected.POST("/post-payment", transaction.PaymentRequest)
 			protected.POST("/logout", account.LogoutHandler)
 		}
 	}

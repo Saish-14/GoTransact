@@ -10,9 +10,9 @@ type TransactionHistory struct {
 	gorm.Model
 	base.Base
 	TransactionID uint `gorm:"not null"`
-	Status      string `gorm:"type:varchar(20);not null"`
+	Status      TransactionStatus `gorm:"type:varchar(20);not null"`
 	Description string `gorm:"type:text"`
-	Amount      string `gorm:"type:string;not null"`
+	Amount      float64 `gorm:"type:string;not null"`
 }
 
 // // Enum for status

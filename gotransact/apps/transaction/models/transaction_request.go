@@ -6,21 +6,23 @@ import (
 	"gorm.io/gorm"
 )
 
+type TransactionStatus string
+
+const (
+	StatusPending    TransactionStatus = "pending"
+	StatusProcessing TransactionStatus = "processing"
+	StatusSuccess    TransactionStatus = "success"
+	StatusFailed     TransactionStatus = "failed"
+)
+
 type TransactionRequest struct {
 	gorm.Model
 	base.Base
 	UserID uint `gorm:""`
-	Status                 string `gorm:"type:varchar(20);not null"`
+	Status             TransactionStatus  `json:"status" gorm:"type:varchar(20);not null;default:'pending'"`
 	PaymentGatewayMethodID uint   `gorm:"not null"`
 	Description        string             `gorm:"type:text"`
-	Amount             string             `gorm:"type:string;not null"`
+	Amount             float64             `gorm:"type:string;not null"`
 	TransactionHistory TransactionHistory `gorm:"foreignKey:TransactionID"`
 }
 
-// Enum for status
-const (
-	StatusPending    = "pending"
-	StatusProcessing = "processing"
-	StatusSuccess    = "success"
-	StatusFailed     = "failed"
-)
