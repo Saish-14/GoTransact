@@ -12,11 +12,9 @@ import (
 var validate *validator.Validate
 
 func cardNumberValidator(fl validator.FieldLevel) bool {
-	fmt.Println("-------in card validator--------")
 	cardNumber := fl.Field().String()
 	// Check if card number is 16 or 18 digits
 	match, _ := regexp.MatchString(`^\d{16}|\d{18}$`, cardNumber)
-	fmt.Println(match)
 	return match
 }
 
@@ -48,6 +46,7 @@ func amountValidation(fl validator.FieldLevel) bool {
 	if err != nil {
 		return false
 	}
+	fmt.Println(amount)
 	return value > 0
 }
 

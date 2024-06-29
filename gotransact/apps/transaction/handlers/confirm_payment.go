@@ -14,6 +14,19 @@ import (
 	"github.com/google/uuid"
 )
 
+// @BasePath /api
+// ConfirmPayment godoc
+// @Summary Confirm a payment
+// @Description Confirm payment by transaction ID and status
+// @Tags Transactions
+// @Accept json
+// @Produce json
+// @Param transaction_id query string true "Transaction ID"
+// @Param status query string true "Status"
+// @Success 200 {object} base_utils.Response
+// @Failure 400 {object} base_utils.Response
+// @Failure 500 {object} base_utils.Response
+// @Router /confirm-payment [get]
 func ConfirmPaymentHandler(c *gin.Context) {
 
 	log.InfoLogger.WithFields(logrus.Fields{
@@ -37,9 +50,9 @@ func ConfirmPaymentHandler(c *gin.Context) {
 	var err error
 
 	if message == "Transaction successful" {
-		tmpl, err = template.ParseFiles("gotransact/apps/transaction/templates/payment_success.html")
+		tmpl, err = template.ParseFiles("/home/saish/GoTransact/gotransact/apps/transaction/templates/payment_success.html")
 	} else if message == "Transaction Canceled" {
-		tmpl, err = template.ParseFiles("gotransact/apps/transaction/templates/payment_fail.html")
+		tmpl, err = template.ParseFiles("/home/saish/GoTransact/gotransact/apps/transaction/templates/payment_fail.html")
 	} else {
 		c.JSON(http.StatusInternalServerError, base_utils.Response{
 			Status:  http.StatusInternalServerError,

@@ -32,7 +32,19 @@ type PostPaymentInput struct {
 	Description string `json:"description" `
 }
 
-
+// PaymentRequest handles the payment request
+// @Summary Create a new payment request
+// @Description Create a new payment request with the provided details
+// @Tags Transactions
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Authorization header with bearer token"
+// @Param paymentInput body PostPaymentInput true "Payment Request Input"
+// @Success 200 {object} base_utils.Response "Successfully created payment request"
+// @Failure 400 {object} base_utils.Response "Invalid input"
+// @Failure 500 {object} base_utils.Response "Internal server error"
+// @Security ApiKeyAuth
+// @Router /protected/post-payment [post]
 func PaymentRequest(c *gin.Context) {
 
 	logger.InfoLogger.WithFields(logrus.Fields{
@@ -50,7 +62,7 @@ func PaymentRequest(c *gin.Context) {
 		return
 	}
 
-	UserFromRequest, exist := c.Get("user")
+	UserFromRequest, exist := c.Get("User")
 	if !exist {
 		c.JSON(http.StatusBadRequest, base_utils.Response{
 			Status:  http.StatusBadRequest,
@@ -94,7 +106,7 @@ func PostPayment(Postpaymentinput PostPaymentInput, user account.User) (int, str
 	floatAmount, _ := strconv.ParseFloat(Postpaymentinput.Amount, 64)
 
 	var gateway transaction.PaymentGateway
-	if err := db.DB.Where("slug = ?", "card").First(&gateway).Error; err != nil {
+	if err := db.DB.Where("Slug = ?", "card").First(&gateway).Error; err != nil {
 		return http.StatusBadRequest, "invalid payment type", map[string]interface{}{}
 	}
 

@@ -15,14 +15,24 @@ const (
 	StatusFailed     TransactionStatus = "failed"
 )
 
+// type TransactionRequest struct {
+// 	gorm.Model
+// 	base.Base
+// 	UserID uint `gorm:""`
+// 	Status             TransactionStatus  `json:"status" gorm:"type:varchar(20);not null;default:'pending'"`
+// 	PaymentGatewayMethodID uint   `gorm:"not null"`
+// 	Description        string             `gorm:"type:text"`
+// 	Amount             float64             `gorm:"type:string;not null"`
+// 	TransactionHistory TransactionHistory `gorm:"foreignKey:TransactionID"`
+// }
 type TransactionRequest struct {
 	gorm.Model
 	base.Base
-	UserID uint `gorm:""`
+	UserID             uint               `json:"user_id" gorm:""`
 	Status             TransactionStatus  `json:"status" gorm:"type:varchar(20);not null;default:'pending'"`
-	PaymentGatewayMethodID uint   `gorm:"not null"`
-	Description        string             `gorm:"type:text"`
-	Amount             float64             `gorm:"type:string;not null"`
-	TransactionHistory TransactionHistory `gorm:"foreignKey:TransactionID"`
+	PaymentGatewayMethodID uint               `json:"payment_gateway_id" gorm:""`
+	Description        string             `json:"description" gorm:"size:255"`
+	Amount             float64            `json:"amount" gorm:"type:float"`
+	TransactionHistory TransactionHistory `gorm:"foreignKey:TransactionID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 

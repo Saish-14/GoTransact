@@ -10,6 +10,24 @@ definitions:
     - email
     - password
     type: object
+  handlers.PostPaymentInput:
+    properties:
+      amount:
+        type: string
+      cardnumber:
+        type: string
+      cvv:
+        type: string
+      description:
+        type: string
+      expirydate:
+        type: string
+    required:
+    - amount
+    - cardnumber
+    - cvv
+    - expirydate
+    type: object
   handlers.SignupUser:
     properties:
       company_name:
@@ -54,6 +72,40 @@ info:
   title: GoTransact API
   version: "1.0"
 paths:
+  /confirm-payment:
+    get:
+      consumes:
+      - application/json
+      description: Confirm payment by transaction ID and status
+      parameters:
+      - description: Transaction ID
+        in: query
+        name: transaction_id
+        required: true
+        type: string
+      - description: Status
+        in: query
+        name: status
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.Response'
+      summary: Confirm a payment
+      tags:
+      - Transactions
   /login:
     post:
       consumes:
@@ -81,7 +133,7 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/utils.Response'
-      summary: Login
+      summary: Login a user
       tags:
       - Auth
   /protected/logout:
@@ -115,6 +167,43 @@ paths:
       summary: Log out a user
       tags:
       - Auth
+  /protected/post-payment:
+    post:
+      consumes:
+      - application/json
+      description: Create a new payment request with the provided details
+      parameters:
+      - description: Authorization header with bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payment Request Input
+        in: body
+        name: paymentInput
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.PostPaymentInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully created payment request
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new payment request
+      tags:
+      - Transactions
   /register:
     post:
       consumes:
