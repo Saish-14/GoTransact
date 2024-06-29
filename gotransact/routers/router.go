@@ -28,5 +28,6 @@ func Routers() *gin.Engine {
 			protected.POST("/logout", account.LogoutHandler)
 		}
 	}
+	
 	return r
 }

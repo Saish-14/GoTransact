@@ -5,6 +5,6 @@ import (
 )
 
 type Base struct {
-	InternalID uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4()"`
+	InternalID uuid.UUID `gorm:"type:uuid;default:gen_random_uuid()"`
 	Is_Active  bool      `gorm:"default:true"`
 }

@@ -21,6 +21,18 @@ var (
 	})
 )
 
+// LogoutHandler handles user logout
+// @Summary Log out a user
+// @Description Logs out a user by invalidating their token
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer token"
+// @Success 200 {object} base_utils.Response "Logged out successfully"
+// @Failure 401 {object} base_utils.Response "Unauthorized"
+// @Failure 500 {object} base_utils.Response "Internal server error"
+// @Router /protected/logout [post]
+// @Security ApiKeyAuth
 func LogoutHandler(c *gin.Context) {
 	logger.InfoLogger.WithFields(logrus.Fields{
 		"method": c.Request.Method,

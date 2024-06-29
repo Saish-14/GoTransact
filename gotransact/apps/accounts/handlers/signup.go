@@ -23,6 +23,16 @@ type SignupUser struct {
 	CompanyName string `json:"company_name" binding:"required"`
 }
 
+// SignupHandler godoc
+// @Summary Registers a new user
+// @Description Create a new user account
+// @Tags accounts
+// @Accept  json
+// @Produce  json
+// @Param   user     body    SignupUser     true        "User data"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /register [post]
 func SignupHandler(c *gin.Context) {
 	// Log the incoming request
 	logger.InfoLogger.WithFields(logrus.Fields{

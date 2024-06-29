@@ -83,6 +83,19 @@ func Login(input LoginInput) (int, string, map[string]interface{}) {
 	return http.StatusOK, "Logged in successfully", map[string]interface{}{"token": token}
 }
 
+
+// @BasePath /api
+// @Summary 			Login a user
+// @Description 		User login
+// @Tags 				Auth
+// @Accept 				json
+// @Produce 			json
+// @Param 				Login body   LoginInput true "Login input"
+// @in 					header
+// @Success 			200 {object} base_utils.Response
+// @Failure 			400 {object} base_utils.Response
+// @Failure 			401 {object} base_utils.Response
+// @Router 				/login [post]
 func LoginHandler(c *gin.Context) {
 	logger.InfoLogger.WithFields(logrus.Fields{
 		"method": c.Request.Method,
