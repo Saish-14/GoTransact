@@ -165,7 +165,7 @@ func SendTransactionMail(user account.User, request transaction.TransactionReque
 	}).Info("Attempted to send confirm payment mail")
 
 	// Parse the HTML template
-	tmpl, err := template.ParseFiles("gotransact/apps/transaction/templates/transaction_email.html")
+	tmpl, err := template.ParseFiles("/home/saish/GoTransact/gotransact/apps/transaction/templates/transaction_email.html")
 	if err != nil {
 		fmt.Printf("Error parsing email template: %s", err)
 	}

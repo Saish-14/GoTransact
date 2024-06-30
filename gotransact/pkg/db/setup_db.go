@@ -15,7 +15,7 @@ func InitDB(typ string) {
 	if strings.EqualFold(typ, "test") {
 		config.Loadenv()
 
-		dbURI = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s TimeZone=%s", config.DbHost, config.DbUser, config.DbPassword, "mydatabase", config.DbPort, config.DbTimezone)
+		dbURI = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s TimeZone=%s", config.DbHost, config.DbUser, config.DbPassword, "TEST_DB", config.DbPort, config.DbTimezone)
 	} else {
 		dbURI = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s TimeZone=%s", config.DbHost, config.DbUser, config.DbPassword, config.DbName, config.DbPort, config.DbTimezone)
 	}

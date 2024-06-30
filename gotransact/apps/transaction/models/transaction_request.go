@@ -15,16 +15,6 @@ const (
 	StatusFailed     TransactionStatus = "failed"
 )
 
-// type TransactionRequest struct {
-// 	gorm.Model
-// 	base.Base
-// 	UserID uint `gorm:""`
-// 	Status             TransactionStatus  `json:"status" gorm:"type:varchar(20);not null;default:'pending'"`
-// 	PaymentGatewayMethodID uint   `gorm:"not null"`
-// 	Description        string             `gorm:"type:text"`
-// 	Amount             float64             `gorm:"type:string;not null"`
-// 	TransactionHistory TransactionHistory `gorm:"foreignKey:TransactionID"`
-// }
 type TransactionRequest struct {
 	gorm.Model
 	base.Base

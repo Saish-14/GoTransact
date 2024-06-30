@@ -4,14 +4,15 @@ import (
 	// "fmt"
 	// "gotransact/apps/Accounts/models"
 	// "gotransact/logger"
-	"gotransact/apps/accounts/models"
 	"context"
 	"fmt"
+	"gotransact/apps/accounts/models"
 	"time"
+
 	"aidanwoods.dev/go-paseto"
 	"github.com/go-redis/redis/v8"
+	"golang.org/x/crypto/bcrypt"
 	// "github.com/sirupsen/logrus"
-	
 )
 
 var (
@@ -59,3 +60,7 @@ func VerifyPasetoToken(signed string) (any, error) {
 
 
 
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(bytes), err
+}

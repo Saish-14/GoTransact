@@ -120,8 +120,3 @@ func LoginHandler(c *gin.Context) {
 	})
 }
 
-// func main() {
-// 	r := gin.Default()
-// 	r.POST("/login", LoginHandler)
-// 	r.Run()
-// }

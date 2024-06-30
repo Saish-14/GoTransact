@@ -6,14 +6,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// type TransactionHistory struct {
-// 	gorm.Model
-// 	base.Base
-// 	TransactionID uint `gorm:"not null"`
-// 	Status      TransactionStatus `gorm:"type:varchar(20);not null"`
-// 	Description string `gorm:"type:text"`
-// 	Amount      float64 `gorm:"type:string;not null"`
-// }
 
 type TransactionHistory struct {
 	gorm.Model

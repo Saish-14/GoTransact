@@ -3,7 +3,7 @@ package config
 import (
 	"log"
 	"os"
-
+	// "fmt"
 	"github.com/joho/godotenv"
 )
 
@@ -22,11 +22,10 @@ var (
 )
 
 func Loadenv() {
-	err := godotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env file ERROR:", err)
 	}
-
 	DbHost = os.Getenv("DB_HOST")
 	DbPort = os.Getenv("DB_PORT")
 	DbUser = os.Getenv("DB_USER")

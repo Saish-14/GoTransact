@@ -1,23 +1,25 @@
 package test
 
 import (
-	"gotransact/apps/accounts/models"
-	transactionmodel "gotransact/apps/transaction/models"
+	accounts_model "gotransact/apps/accounts/models"
+	transaction_model "gotransact/apps/transaction/models"
 	"gotransact/pkg/db"
-
 	"fmt"
 )
 
 func SetupTestDb() {
-	fmt.Println("----------------in setup test db----------")
 	db.InitDB("test")
-	if err := db.DB.AutoMigrate(&models.User{}, &models.Company{}, &transactionmodel.PaymentGateway{}, &transactionmodel.TransactionRequest{}, &transactionmodel.TransactionHistory{}); err != nil {
+	if err := db.DB.AutoMigrate(
+		&accounts_model.User{}, &accounts_model.Company{},
+		&transaction_model.PaymentGateway{},
+		&transaction_model.TransactionRequest{},
+		&transaction_model.TransactionHistory{},
+		); err != nil {
 		fmt.Printf("Error automigrating models : %s", err.Error())
 	}
 }
 
 func CloseTestDb() {
-	fmt.Println("---------------in close db-------------")
 	sqlDB, err := db.DB.DB()
 	if err != nil {
 		fmt.Printf("Error getting sqlDB from gorm DB: %s", err.Error())
@@ -29,14 +31,9 @@ func CloseTestDb() {
 }
 
 func ClearDatabase() {
-	fmt.Println("----------------in clear db-----------------")
-
 	db.DB.Exec("DELETE FROM companies")
-
 	db.DB.Exec("DELETE FROM users")
-
 	db.DB.Exec("DELETE FROM transaction_histories")
-
 	db.DB.Exec("DELETE FROM transaction_requests")
 	db.DB.Exec("DELETE FROM payment_gateways")
 }
