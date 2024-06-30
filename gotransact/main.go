@@ -45,7 +45,7 @@ func main() {
 		&transaction.TransactionHistory{})
 
     var c = cron.New()
-    c.AddFunc("@every 1h", func() {
+    c.AddFunc("@every 24h", func() {
         transactions := transaction_utils.FetchTransactionsLast24Hours()
         filePath, err := transaction_utils.GenerateExcel(transactions)
         if err != nil {
